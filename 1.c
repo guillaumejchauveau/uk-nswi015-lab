@@ -62,12 +62,51 @@ void args2 (int argc, char **argv)
     }
 }
 
+int
+drawMountain(int startPos,
+             int startElevation,
+             int length,
+             int summit,
+             int summit_length,
+             size_t grid_height,
+             size_t grid_width,
+             char grid[grid_height][grid_width]) {
+  int elevation = startElevation;
+  int dir = 1;
+  for (int pos = startPos; pos <= startPos + length; pos++) {
+    if (elevation == summit) {
+      if (summit_length > 0) {
+        dir = 0;
+      } else {
+        dir = -1;
+        elevation--;
+      }
+    }
+
+    if (elevation < 0) {
+      return -pos;
+    }
+
+    if (dir == 1) {
+      grid[elevation][pos] = '/';
+      elevation++;
+    } else if (dir == -1) {
+      grid[elevation][pos] = '\\';
+      elevation--;
+    } else {
+      grid[elevation][pos] = '_';
+      summit_length--;
+    }
+  }
+  return elevation;
+}
+
 void mountain ()
 {
   struct winsize w;
   ioctl (0, TIOCGWINSZ, &w);
   int height = 15;
-  int width = w.ws_col;
+  int width = 100;
   char grid[height][width];
   for (int y = 0; y < height; y++)
     {
@@ -76,32 +115,8 @@ void mountain ()
           grid[y][x] = ' ';
         }
     }
-
-  int elevation = 0;
-  int dir = 1;
-  for (int pos = 0; pos < width; pos++)
-    {
-      if (dir)
-        {
-          grid[elevation][pos] = '/';
-          elevation++;
-        }
-      else
-        {
-          grid[elevation][pos] = '\\';
-
-          elevation--;
-        }
-      if (elevation >= height - 1)
-        {
-          dir = 0;
-        }
-      if (elevation <= 0)
-        {
-          dir = 1;
-        }
-    }
-
+  drawMountain(0, 0, 7, 5, 0, height, width, grid);
+  drawMountain(9, 2, 15, 8, 2, height, width, grid);
   for (int y = height - 1; y >= 0; y--)
     {
       for (int x = 0; x < width; x++)
@@ -110,10 +125,4 @@ void mountain ()
         }
       printf ("\n");
     }
-}
-
-int main (int argc, char **argv)
-{
-  mountain ();
-  return 0;
 }
