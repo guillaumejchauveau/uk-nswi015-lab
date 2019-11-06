@@ -1,6 +1,6 @@
-#include "2.c"
+#include "3.c"
 
 int main(int argc, char **argv) {
-  //copyFile (argv[1], argv[2]);
-  printReverse(argv[1]);
+  redirect_output_to_file();
+  print_dir(".");
 }
