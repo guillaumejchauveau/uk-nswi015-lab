@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
-project(Lab C)
+project(UNIX_Lab C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(.)
-
-add_executable(Lab
-        main.c)
+add_subdirectory(src)

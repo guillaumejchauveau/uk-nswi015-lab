@@ -10,4 +10,4 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: build
-          path: Lab
+          path: src/lab
