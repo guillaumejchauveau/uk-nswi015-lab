@@ -10,14 +10,19 @@ int testGetOpt(int argc, char **argv) {
   int c;
   while ((c = getopt(argc, argv, "abf:")) != -1) {
     switch (c) {
-      case 'a':printf("option a\n");
+      case 'a':
+        printf("option a\n");
         break;
-      case 'b':printf("option b\n");
+      case 'b':
+        printf("option b\n");
         break;
-      case 'f':printf("file %s", optarg);
+      case 'f':
+        printf("file %s", optarg);
         break;
-      case '?':errx(1, "Unknown option %c", optopt);
-      default:printf("default\n");
+      case '?':
+        errx(1, "Unknown option %c", optopt);
+      default:
+        printf("default\n");
     }
   }
   return 0;

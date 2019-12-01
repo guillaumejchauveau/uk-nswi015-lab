@@ -12,18 +12,22 @@ int pipeTest() {
   }
 
   switch (fork()) {
-    case -1:perror("Fork failed");
+    case -1:
+      perror("Fork failed");
       exit(-1);
-    case 0:close(fd[0]);
+    case 0:
+      close(fd[0]);
       dup2(fd[1], STDOUT_FILENO);
       char *args[] = {"cat", "/etc/passwd", NULL};
       execv("/bin/cat", args);
   }
 
   switch (fork()) {
-    case -1:perror("Fork failed");
+    case -1:
+      perror("Fork failed");
       exit(-1);
-    case 0:close(fd[1]);
+    case 0:
+      close(fd[1]);
       dup2(fd[0], STDIN_FILENO);
       char *args[] = {"grep", "/bin/false", NULL};
       execv("/bin/grep", args);
