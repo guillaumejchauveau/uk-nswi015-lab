@@ -1,2 +1,3 @@
 add_executable(lab
-        main.c)
+        exam/exam.c)
+target_link_libraries(lab pthread)
